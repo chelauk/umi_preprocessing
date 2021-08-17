@@ -19,7 +19,7 @@ process BAM_TO_FASTQ {
     tuple val(meta), file(bam)
 
     output:
-    tuple val(meta), file("*fastq"), emit: fastq
+    tuple val(meta), file("*fastq.gz"), emit: fastq
 
     script:
     """
@@ -33,10 +33,11 @@ process BAM_TO_FASTQ {
     CLIPPING_ATTRIBUTE=XT \\
     CLIPPING_ACTION=2 \\
     INTERLEAVE=true \\
+    COMPRESS_OUTPUTS_PER_RG=true \\
     NON_PF=true 
     """
     stub:
     """
-    touch ${meta.id}.fastq
+    touch ${meta.id}.fastq.gz
     """
     }
